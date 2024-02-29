@@ -1,0 +1,226 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ name }}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'news/img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'news/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'news/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+<!-- Navbar Start -->
+{% block navbar %}
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5">
+
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="{% url 'home' %}" class="nav-item nav-link active">News</a>
+                    <div class="nav-item dropdown">
+                        <a href="{% url 'home' %}" class="nav-link dropdown-toggle"
+                           data-toggle="dropdown">Categories</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            {% for news_category in news_categories %}
+                                <a href="{{ news_category.get_absolute_url }}"
+                                   class="dropdown-item">{{ news_category.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <a href="{% url 'add_news_page' %}" class="nav-item nav-link">Add News</a>
+                    <a href="{% url 'add_news' %}" class="nav-item nav-link">About</a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'users:profile' %}" class="nav-item nav-link"> {{ user.username }}</a> <a href="{% url 'users:logout' %}" class="nav-item nav-link"> Logout</a>
+                    {% else %}
+                    <a href="{% url 'users:login' %}" class="nav-item nav-link">Login</a>
+                    {% endif %}
+                    <a href="{% url 'users:register' %}" class="nav-item nav-link">Registration</a>
+                </div>
+                <form class="input-group ml-auto d-none d-lg-flex" role="search" action="{% url 'search' %}" method="get" style="width: 100%; max-width: 300px;">
+                    <input class="form-control border-0" type="search" name="q" value="{{ request.GET.q }}" placeholder="Search">
+                    <div class="input-group-append">
+                        <button class="input-group-text bg-primary text-dark border-0 px-3" type="submit"><i
+                                class="fa fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+{% endblock %}
+<!-- Navbar End -->
+
+
+<!-- Main News Slider Start -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-7 px-0">
+            <div class="owl-carousel main-carousel position-relative">
+                <div class="position-relative overflow-hidden" style="height: 500px;">
+                    <img class="img-fluid h-100" src="{% static 'news/img/news-800x500-1.jpg' %}"
+                         style="object-fit: cover;">
+                    <div class="overlay">
+                        <div class="mb-2">
+                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                               href="">Business</a>
+                            <a class="text-white" href="">Jan 01, 2045</a>
+                        </div>
+                        <a class="h2 m-0 text-white text-uppercase font-weight-bold" href=""></a>
+                    </div>
+                </div>
+                <div class="position-relative overflow-hidden" style="height: 500px;">
+                    <img class="img-fluid h-100" src="{% static 'news/img/news-800x500-2.jpg' %}"
+                         style="object-fit: cover;">
+                    <div class="overlay">
+                        <div class="mb-2">
+                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                               href="">Business</a>
+                            <a class="text-white" href="">Jan 01, 2045</a>
+                        </div>
+                        <a class="h2 m-0 text-white text-uppercase font-weight-bold" href="">Lorem ipsum dolor sit amet
+                            elit. Proin vitae porta diam...</a>
+                    </div>
+                </div>
+                <div class="position-relative overflow-hidden" style="height: 500px;">
+                    <img class="img-fluid h-100" src="{% static 'news/img/news-800x500-3.jpg' %}"
+                         style="object-fit: cover;">
+                    <div class="overlay">
+                        <div class="mb-2">
+                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                               href="">Business</a>
+                            <a class="text-white" href="">Jan 01, 2045</a>
+                        </div>
+                        <a class="h2 m-0 text-white text-uppercase font-weight-bold" href="">Lorem ipsum dolor sit amet
+                            elit. Proin vitae porta diam...</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- News With Sidebar Start -->
+{% block content %}
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section-title">
+                                <h4 class="m-0 text-uppercase font-weight-bold"></h4>
+                                <a class="text-secondary font-weight-medium text-decoration-none" href=""></a>
+                            </div>
+                        </div>
+                        {% for new in news %}
+                            <div class="col-lg-6">
+                                <div class="position-relative mb-3">
+                                    {% if new.image %}
+                                        <img class="img-fluid w-100" src="{{ new.image.url }}"
+                                             style="object-fit: cover;">
+                                    {% endif %}
+                                    <div class="bg-white border border-top-0 p-4">
+                                        <div class="mb-2">
+                                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                                               href="">{{ new.category }}</a>
+                                            <a class="text-body" href=""><small>{{ new.created_at }}</small></a>
+                                        </div>
+                                        <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold"
+                                           href="{{ new.get_absolute_url }}">{{ new.name }}</a>
+                                        <p class="m-0">{{ new.content }}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded-circle mr-2" src="{% static 'news/img/user.jpg' %}"
+                                                 width="25" height="25" alt="">
+                                            {% with new.tags.all as tags %}
+                                                <ul class="tags-list">
+                                                    <li>Теги:</li>
+                                                    {% for t in tags %}
+                                                        <li><a href="{{ t.get_absolute_url }}">{{ t.tag }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endwith %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+{#                        <div class="col-lg-3 col-md-6 mb-5">#}
+{#                            <h5 class="mb-4 text-black text-uppercase font-weight-bold">Tags</h5>#}
+{#                            {% for news_tag in news_tags %}#}
+{#                                <div class="m-n1">#}
+{#                                    <a href="{{ new.get_absolute_url }}"#}
+{#                                       class="btn btn-sm btn-secondary m-1">{{ news_tag.tag }}</a>#}
+{#                                </div>#}
+{#                            {% endfor %}#}
+{#                        </div>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block navigation %}
+    {% if page_obj.has_other_pages %}
+        <div style="width: 50%; margin-left: 400px; text-align: center; display: inline-block">
+            <nav class="list-pages">
+                <ul>
+                    {% if page_obj.has_previous %}
+                        <li class="page-num">
+                            <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                        </li>
+                    {% endif %}
+                    {% for p in paginator.page_range %}
+                        {% if page_obj.number == p %}
+                            <li class="page-num page-num-selected">{{ p }}</li>
+                        {% elif p >= page_obj.number|add:-2 or p <= page_obj.number|add:-2 %}
+                            <li class=""><a href="?page={{ p }}" class="page-link">{{ p }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.next %}
+                        <li class="page-num">
+                            <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+</body>
+
+</html>

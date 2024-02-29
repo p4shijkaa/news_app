@@ -1,0 +1,38 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+    <div class="col-lg-6">
+        <div class="position-relative mb-3">
+            {% if news.image %}
+                <img class="img-fluid w-100" src="{{ news.image.url }}"
+                     style="object-fit: none;">
+            {% endif %}
+            <div class="bg-white border border-top-0 p-4">
+                <div class="mb-2">
+                    <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                       href="">{{ news.category }}</a>
+                    <a class="text-body" href=""><small>{{ news.created_at }}</small></a>
+                </div>
+                <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold"
+                   href="{{ news.get_absolute_url }}">{{ news.name }}</a>
+                <p class="m-0">{{ news.content }}</p>
+            </div>
+            <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
+                <div class="d-flex align-items-center">
+                    {% with news.tags.all as tags %}
+                        <ul class="tags-list">
+                            <li>Теги:</li>
+                            {% for t in tags %}
+                                <li><a href="{{ t.get_absolute_url }}">{{ t.tag }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if news.photo %}
+        <p><img class="img-article-left" src="{{ news.photo.url }}"></p>
+    {% endif %}
+{% endblock %}
